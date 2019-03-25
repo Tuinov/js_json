@@ -1,0 +1,57 @@
+<html>
+
+<head>
+  <title>AJAX</title>
+</head>
+
+<body>
+  <button id="send">Send request</button>
+  <ul id="phones"></ul>
+  
+  <button id="control">trening</button>
+  <script>
+      
+      const promise = new Promise((resolve, reject) => {  function sendRequest(url, callback) {
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', url); // настройка запроса 
+      xhr.send(); // отправка запроса
+  
+      xhr.onreadystatechange = () => { // срабатывает на все изменения состояния запроса
+        if(xhr.readyState === xhr.DONE) {
+          resolve(JSON.parse(xhr.responseText));
+        }
+      }
+    }
+ }
+      
+      
+    
+      
+   
+    const $button = document.querySelector('#send');
+      
+    $button.addEventListener('click', () => {
+      sendRequest('http://localhost:3000/phones.json', (phones) => {
+        document.querySelector('#phones').innerHTML = phones.map(item => `<li>${item.name}: ${item.phone}</li>`).join('');
+      });
+    });
+      
+      
+      
+    
+      const $buttonCtr = document.querySelector('#control');
+      $buttonCtr.addEventListener('click', () => {
+          const xhrj = new XMLHttpRequest();
+          xhrj.open('GET', 'http://localhost:3000/ajax.js');
+          xhrj.send();
+          
+          xhrj.onreadystatechange = () => {
+              if(xhrj.readyState === xhrj.DONE) {
+                  console.log(xhrj.responseText);
+              }
+          }
+      });
+  </script>
+</body>
+
+</html>
